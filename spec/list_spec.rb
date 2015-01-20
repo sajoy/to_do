@@ -22,6 +22,16 @@ describe(List) do
     end
   end
 
+  describe(".find") do
+    it("returns a list by its ID number") do
+      list1 = List.new({:name => "Epicodus stuff", :id => nil})
+      list2 = List.new({:name => "Epicodus stuff", :id => nil})
+      list1.save()
+      list2.save()
+      expect(List.find(list2.id())).to(eq(list2))
+    end
+  end
+
   describe("#save") do
     it("lets you save lists to the database") do
       list = List.new({:name => "Epicodus stuff", :id => nil})
@@ -62,7 +72,6 @@ describe(List) do
       food3.save()
       expect(food.sort_tasks()).to(eq([food2, food1, food3]))
     end
-
   end
 
 

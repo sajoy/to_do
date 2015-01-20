@@ -1,0 +1,24 @@
+
+<form action="/add_task" method="post">
+  <label for="description">Task Description</label>
+  <input id="description" name="description" type="text">
+
+  <label for="due_date">Due Date</label>
+  <input id="due_date" name="due_date" type="text">
+
+  <input id="list_id" name="list_id" type="hidden" value="<%= @id %>">
+
+  <button type="submit">Add Task</button>
+</form>
+
+<% if @tasks.any?() %>
+<p>Tasks on list <%= @list.name()%> </p>
+
+<ul>
+  <% @tasks.each() do |task| %>
+    <li><%= task.description() %> | <%= task.due_date() %></a></li>
+  <% end %>
+</ul>
+<% else %>
+<p>You have no tasks yet ):</p>
+<% end %>
