@@ -37,4 +37,18 @@ describe(List) do
       expect(list1).to(eq(list2))
     end
   end
+
+  describe("#tasks") do
+    it("returns an array of all the tasks in a list") do
+      food = List.new({:name => "groceries", :id => nil})
+      food.save()
+      food1 = Task.new({:description => "apples", :due_date => "2015-01-24 00:00:00", :list_id => food.id()})
+      food1.save()
+      food2 = Task.new({:description => "oranges", :due_date => "2015-01-24 00:00:00", :list_id => food.id()})
+      food2.save()
+      expect(food.tasks()).to(eq([food1, food2]))
+    end
+  end
+
+
 end
