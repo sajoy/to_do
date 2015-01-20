@@ -30,9 +30,22 @@ class List
     task_array = []
     tasks = DB.exec("SELECT * FROM tasks WHERE list_id = #{@id};")
     tasks.each() do |task|
-      task_array.push(task)
+      symbol_key = task.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
+        # http://stackoverflow.com/questions/800122/best-way-to-convert-strings-to-symbols-in-hash
+        # changes string keys to symbol keys
+      task_array.push(Task.new(symbol_key))
     end
     task_array
+  end
+
+  define_method(:sort_tasks) do
+    sorted =[]
+    unsorted = DB.exec("SELECT * FROM tasks WHERE list_id = #{@id} ORDER BY due_date ASC;")
+    unsorted.each() do |task|
+      symbol_key = task.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
+      sorted.push(Task.new(symbol_key))
+    end
+    sorted
   end
 
 end

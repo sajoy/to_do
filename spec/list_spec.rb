@@ -50,5 +50,20 @@ describe(List) do
     end
   end
 
+  describe("#sort_tasks") do
+    it("returns the tasks sorted by due_date") do
+      food = List.new({:name => "groceries", :id => nil})
+      food.save()
+      food1 = Task.new({:description => "apples", :due_date => "2015-01-24 00:00:00", :list_id => food.id()})
+      food1.save()
+      food2 = Task.new({:description => "oranges", :due_date => "2015-01-22 00:00:00", :list_id => food.id()})
+      food2.save()
+      food3 = Task.new({:description => "grapes", :due_date => "2015-01-26 00:00:00", :list_id => food.id()})
+      food3.save()
+      expect(food.sort_tasks()).to(eq([food2, food1, food3]))
+    end
+
+  end
+
 
 end
